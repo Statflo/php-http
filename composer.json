@@ -1,0 +1,19 @@
+{
+    "name": "statflo/php-http",
+    "description": "HTTP package for statflo php projects",
+    "type": "library",
+    "require": {
+        "silex/silex": "~1.3",
+        "statflo/php-di": "dev-master"
+    },
+    "license": "COPYRIGHT",
+    "authors": [
+        {
+            "name": "Kinn Coelho Juliao",
+            "email": "kinn@statflo.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Statflo\\HTTP\\": "src/Statflo/HTTP"}
+    }
+}
