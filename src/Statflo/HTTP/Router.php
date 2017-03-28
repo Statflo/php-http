@@ -31,15 +31,21 @@ class Router
             $configs        = !is_array($check) ? [$configs] : $configs;
 
             foreach ($configs as $config) {
-                $classNames[] = $config['class'];
+                $classNames[] = $config;
             }
         }
 
-        $classNames = array_unique($classNames);
+        foreach ($classNames as $config) {
+            $id = $config['id'];
 
-        foreach ($classNames as $className) {
-            $id       = strtolower(str_replace("\\", ".", $className));
-            $app[$id] = new $className($app['container']);
+            try {
+                if (isset($app[$id])) {
+                    continue;
+                }
+            } catch (\Exception $e) {
+                $className = $config['class'];
+                $app[$id]  = new $className($app['container']);
+            }
         }
     }
 

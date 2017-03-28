@@ -26,7 +26,7 @@ class Main
         $nonExistentApp = is_null($app);
 
         if ($nonExistentApp) {
-            $app = new Application();
+            $app = new \Statflo\HTTP\Application();
             $app['debug'] = $config['debug'];
         }
 
