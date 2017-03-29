@@ -51,4 +51,31 @@ class Main
 
         \Statflo\HTTP\Router::register($routes, $app);
     }
+
+    private function defineSession($bootstrap, array $configuration = [])
+    {
+        $session = [];
+
+        if (isset($configuration['session'])) {
+            $session = [$configuration['session']];
+        }
+
+        $bootstrap->define(
+            'statflo.session',
+            \Statflo\DI\DTO\Collection::class,
+            $session
+        );
+
+        $auth = [];
+
+        if (isset($configuration['auth'])) {
+            $auth = [$configuration['auth']];
+        }
+
+        $bootstrap->define(
+            'statflo.auth',
+            \Statflo\DI\DTO\Auth::class,
+            $auth
+        );
+    }
 }
