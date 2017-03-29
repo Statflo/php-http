@@ -46,7 +46,9 @@ class Main
 
         unset($config['controllers']);
 
-        $bootstrap        = \Statflo\DI\Bootstrap::run($config);
+        $bootstrap = \Statflo\DI\Bootstrap::run($config);
+        $this->defineSession($bootstrap, $config);
+
         $app['container'] = $bootstrap;
 
         \Statflo\HTTP\Router::register($routes, $app);
