@@ -8,6 +8,8 @@ if (file_exists($vendor)) {
     require_once $vendor;
 }
 
+use Silex\Application as BaseApplication;
+
 class Main
 {
     private $config = [];
@@ -19,12 +21,12 @@ class Main
         }
     }
 
-    public static function run(\Silex\Application $app = null, array $config = [])
+    public static function run(BaseApplication $app = null, array $config = [])
     {
         $nonExistentApp = is_null($app);
 
         if ($nonExistentApp) {
-            $app = new Application();
+            $app = new \Statflo\HTTP\Application();
             $app['debug'] = $config['debug'];
         }
 
@@ -37,7 +39,7 @@ class Main
         }
     }
 
-    public function start(\Silex\Application $app)
+    public function start(BaseApplication $app)
     {
         $config = $this->config;
         $routes = $this->config['controllers'];

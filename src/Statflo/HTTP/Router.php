@@ -2,18 +2,18 @@
 
 namespace Statflo\HTTP;
 
-use Silex\Application;
+use Silex\Application as BaseApplication;
 
 class Router
 {
     private function __construct(){}
 
-    public static function register(array $routes, Application $app)
+    public static function register(array $routes, BaseApplication $app)
     {
         (new self())->run($routes, $app);
     }
 
-    public function run(array $routes, Application $app)
+    public function run(array $routes, BaseApplication $app)
     {
         $this->defineServices($routes, $app);
 
@@ -22,7 +22,7 @@ class Router
         }
     }
 
-    private function defineServices($routes, Application $app)
+    private function defineServices($routes, BaseApplication $app)
     {
         $classNames = [];
         foreach ($routes as $route => $configs) {
@@ -49,7 +49,7 @@ class Router
         }
     }
 
-    private function defineRoutes($route, array $configs, Application $app)
+    private function defineRoutes($route, array $configs, BaseApplication $app)
     {
         $checkReference = array_values($configs);
         $check          = array_pop($checkReference);
@@ -63,7 +63,7 @@ class Router
         }
     }
 
-    private function defineRoute($route, array $config, Application $app)
+    private function defineRoute($route, array $config, BaseApplication $app)
     {
         if (substr($route, -1) !== "/") {
             $app->{$config['method']}($route . "/", $config['id']);
