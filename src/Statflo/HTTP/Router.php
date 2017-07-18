@@ -65,14 +65,26 @@ class Router
 
     private function defineRoute($route, array $config, BaseApplication $app)
     {
+        $catchAll = strpos($route, '{catch_all}') !== false;
+
         if (substr($route, -1) !== "/") {
-            $app->{$config['method']}($route . "/", $config['id']);
-            $app->{$config['method']}($route, $config['id']);
+            $r1 = $app->{$config['method']}($route . "/", $config['id']);
+            $r2 = $app->{$config['method']}($route, $config['id']);
+
+            if ($catchAll) {
+                $r1->assert("catch_all", ".*");
+                $r2->assert("catch_all", ".*");
+            }
 
             return;
         }
 
-        $app->{$config['method']}($route, $config['id']);
-        $app->{$config['method']}(substr($route, -1), $config['id']);
+        $r1 = $app->{$config['method']}($route, $config['id']);
+        $r2 = $app->{$config['method']}(substr($route, -1), $config['id']);
+
+        if ($catchAll) {
+            $r1->assert("catch_all", ".*");
+            $r2->assert("catch_all", ".*");
+        }
     }
 }
