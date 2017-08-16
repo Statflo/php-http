@@ -52,6 +52,7 @@ class Main
         $app['container'] = $bootstrap;
 
         \Statflo\HTTP\Router::register($routes, $app);
+        $bootstrap->compile();
     }
 
     private function defineSession($bootstrap, array $configuration = [])
