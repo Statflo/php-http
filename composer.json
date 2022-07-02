@@ -3,7 +3,7 @@
     "description": "HTTP package for statflo php projects",
     "type": "library",
     "require": {
-        "silex/silex": "~1.3",
+        "silex/silex": ">=1.3",
         "statflo/php-di": ">=1.2 <2.0"
     },
     "license": "COPYRIGHT",
